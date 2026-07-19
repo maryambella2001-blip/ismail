@@ -1,0 +1,364 @@
+/* ================= RESET & BASE ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ================= HEADER ================= */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+}
+
+.logo {
+    width: 55px;
+    height: auto;
+    border-radius: 50%;
+}
+
+header ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+header ul li a {
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+header ul li a:hover,
+header ul li a.active {
+    background: #000;
+    color: white;
+}
+
+.cart-btn {
+    background: #000;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.cart-btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+
+/* ================= HERO SECTION ================= */
+.about {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1300px;
+    margin: 100px auto 60px;
+    padding: 0 40px;
+    gap: 60px;
+}
+
+.hesob h5 {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.hesob h1 {
+    font-size: 58px;
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hesob p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.main-bnt {
+    display: inline-block;
+    background: #000;
+    color: white;
+    padding: 14px 32px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.main-bnt:hover {
+    background: #333;
+    transform: translateY(-3px);
+}
+
+.heroimg {
+    max-width: 420px;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* ================= PRODUCTS SECTION ================= */
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    padding-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.product-images {
+    display: flex;
+    gap: 10px;
+    padding: 15px 15px 10px;
+    background: #fafafa;
+}
+
+.product-images img {
+    width: 100%;
+    height: 145px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    transition: 0.3s;
+}
+
+.card:hover .product-images img {
+    transform: scale(1.03);
+}
+
+.card h3 {
+    font-size: 20px;
+    margin: 15px 15px 5px;
+    color: #222;
+}
+
+.card p {
+    font-size: 14px;
+    color: #777;
+    margin: 0 15px 10px;
+}
+
+/* ================= COLOR PICKER ================= */
+.color-options {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 12px 0;
+}
+
+.color-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px #ddd;
+    transition: 0.2s ease;
+}
+
+.color-circle:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 3px #ccc;
+}
+
+.color-circle.selected {
+    box-shadow: 0 0 0 3px #000;
+    transform: scale(1.2);
+}
+
+/* ================= PRICE & BUTTON ================= */
+.price-cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 15px;
+}
+
+.price-cart span {
+    font-size: 20px;
+    font-weight: 700;
+    color: #e63946;
+}
+
+.price-cart button {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 9px 22px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.price-cart button:hover {
+    background: #333;
+    transform: scale(1.05);
+}
+
+/* ================= CUSTOM T-SHIRT INPUT ================= */
+#customName {
+    width: 85%;
+    margin: 12px auto;
+    display: block;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    font-size: 15px;
+    text-align: center;
+}
+
+#customName:focus {
+    border-color: #000;
+    outline: none;
+}
+
+/* ================= SIZE SELECTOR (Hamburger style) ================= */
+.size-options {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: 10px 0;
+    flex-wrap: wrap;
+}
+
+.size-btn {
+    padding: 6px 13px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 34px;
+    text-align: center;
+}
+
+.size-btn:hover {
+    border-color: #000;
+    background: #f8f8f8;
+}
+
+.size-btn.selected {
+    background: #000;
+    color: white;
+    border-color: #000;
+}
+
+/* ================= ABOUT SECTION ================= */
+.ismme {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 50px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.ismme h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+/* ================= CONTACT ================= */
+.contact {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.contactTitle {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contactme {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.emaliAndphon {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 992px) {
+    .about {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .products {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+    }
+    
+    .products {
+        padding: 0 20px;
+    }
+    
+    .product-images img {
+        height: 150px;
+    }
+}

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <title>fabyou</title>
+    <style>
+        .product-image {
+            padding: 10px;
+        }
+        .product-image img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid #eee;
+        }
+        .color-options {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        .color-circle {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #ddd;
+            transition: 0.2s;
+        }
+        .color-circle:hover {
+            transform: scale(1.2);
+            border-color: #000;
+        }
+        .color-circle.selected {
+            border-color: #000;
+            box-shadow: 0 0 0 3px #ccc;
+        }
+        .no-products {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        /* Header Hamburger */
+        .header-hamburger {
+            display: none;
+            font-size: 22px;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .header-hamburger {
+                display: block;
+            }
+            
+            header ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 15px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                z-index: 999;
+            }
+            
+            header ul.show {
+                display: flex;
+            }
+            
+            header ul li a {
+                padding: 8px 15px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body> 
+    <header>
+        <img src="fabyou.jpg" class="logo" alt="fabyou">
+        
+        <ul id="nav-menu">
+            <li><a href="#sirves">Collection</a></li>
+            <li><a href="#aboutme">About</a></li>
+            <li><a href="#contacme">Contact</a></li>
+        </ul>
+        
+        <a href="card.html" class="cart-btn">
+            🛒 Cart (<span id="cart-count">0</span>)
+        </a>
+
+        <!-- Hamburger Menu -->
+        <div class="header-hamburger" onclick="toggleHeaderMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+    
+    <hr>
+
+    <section class="about" id="sirves">
+        <div class="hesob">
+            <h5>summer collection</h5>
+            <h1>New Summer <br> collection 2026</h1>
+            <p>Light, fresh, and trendy</p>
+            <a href="#main-bnt" class="main-bnt">shop now <i class="fas fa-shopping-cart"></i></a>
+        </div>
+        <img src="fabyou.jpg" alt="design" class="heroimg">
+    </section>
+    
+    <hr>
+
+    <section class="products" id="main-bnt">
+        <!-- المنتجات كتجي من لوحة التحكم -->
+    </section>
+    
+    <hr>
+
+    <section class="ismme" id="aboutme">
+        <h2>About Me</h2>
+        <p>Le commerce électronique consiste à acheter et vendre des produits...</p>
+    </section>
+    
+    <hr>
+
+    <section id="contacme" class="contact">
+        <div class="contactTitle">
+            <h1>contact</h1>
+            <h1>me</h1>
+        </div>
+        <div class="contactme">
+            <div class="emaliAndphon">
+                <img src="Email.svg" alt="Email">
+                <a href="/cdn-cgi/l/email-protection#ee819e9d87879d838f8782ae89838f8782c08d8183"><h3><span class="__cf_email__" data-cfemail="2847585b41415b45494144684f45494144064b4745">[email&#160;protected]</span></h3></a>
+            </div>
+            <div class="emaliAndphon">
+                <img src="phone.svg" alt="Phone">
+                <a href="tel:+212773300654"><h3>+212773300654</h3></a>
+            </div>
+        </div>
+    </section>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        updateCount();
+
+        let selectedColor = "";
+        let selectedSize = "";
+
+        function loadProducts() {
+            const container = document.getElementById("main-bnt");
+
+            // أولاً: نقرا المنتجات من الـ Admin (localStorage)
+            let products = JSON.parse(localStorage.getItem("adminProducts")) || [];
+
+            // إذا ما كاينينش منتجات في الـ Admin، نعرض المنتجات الافتراضية
+            if (products.length === 0) {
+                products = [
+                    {
+                        "name": "T-Shirt Black",
+                        "price": 129,
+                        "image": "fba.jpg"
+                    },
+                    {
+                        "name": "T-Shirt White",
+                        "price": 129,
+                        "image": "fba2.jpg"
+                    },
+                    {
+                        "name": "Oversized Black",
+                        "price": 149,
+                        "image": "imgs1.jpeg"
+                    },
+                    {
+                        "name": "Streetwear Tee",
+                        "price": 139,
+                        "image": "imgs2.jpeg"
+                    }
+                ];
+            }
+
+            if (products.length === 0) {
+                container.innerHTML = `
+                    <div class="no-products">
+                        <h3>No products available yet</h3>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = products.map((product) => `
+                <div class="card">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}">
+                    </div>
+                    <h3>${product.name}</h3>
+                    
+                    <div class="color-options">
+                        <div class="color-circle" style="background: #111;" onclick="selectColor(this, 'Black')"></div>
+                        <div class="color-circle" style="background: #444;" onclick="selectColor(this, 'Dark Gray')"></div>
+                        <div class="color-circle" style="background: #222;" onclick="selectColor(this, 'Navy')"></div>
+                    </div>
+                    
+                    <div class="price-cart">
+                        <span>${product.price} DH</span>
+                        <button onclick="addToCartWithOptions(this)">Add to Cart</button>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function selectColor(element, color) {
+            const card = element.closest('.card');
+            card.querySelectorAll('.color-circle').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedColor = color;
+        }
+
+        function addToCartWithOptions(button) {
+            const card = button.closest('.card');
+            const name = card.querySelector('h3').innerText;
+            const priceText = card.querySelector('.price-cart span').innerText;
+            const price = parseInt(priceText);
+            const color = selectedColor || "Default";
+
+            cart.push({
+                name: name,
+                price: price,
+                color: color,
+                size: "M"
+            });
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCount();
+            
+            selectedColor = "";
+            card.querySelectorAll('.color-circle').forEach(el => el.classList.remove('selected'));
+        }
+
+        function updateCount() {
+            const countEl = document.getElementById("cart-count");
+            if (countEl) countEl.innerText = cart.length;
+        }
+
+        // Hamburger Menu
+        function toggleHeaderMenu() {
+            const menu = document.getElementById("nav-menu");
+            menu.classList.toggle("show");
+        }
+
+        window.onload = function() {
+            loadProducts();
+            updateCount();
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1dc2713fd73d259',t:'MTc4NDQ4OTU1Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

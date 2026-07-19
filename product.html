@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background: #f5f5f5;
+    padding: 40px;
+}
+
+.product-container{
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    gap: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.1);
+}
+
+.product-image{
+    flex: 1;
+}
+
+.product-image img{
+    width: 100%;
+    border-radius: 15px;
+}
+
+.product-info{
+    flex: 1;
+}
+
+.product-info h1{
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.price{
+    font-size: 28px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.size-title{
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.sizes{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.sizes button{
+    width: 50px;
+    height: 50px;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.sizes button:hover{
+    background: black;
+    color: white;
+}
+
+.quantity{
+    margin-bottom: 25px;
+}
+
+.quantity input{
+    width: 80px;
+    padding: 10px;
+    font-size: 18px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+}
+
+.add-cart{
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: black;
+    color: white;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.add-cart:hover{
+    transform: translateY(-3px);
+}
+
+.images-switch{
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.images-switch img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.images-switch img:hover{
+    border-color: black;
+}
+
+.cart-icon{
+  text-decoration:none;
+  color:black;
+  font-size:22px;
+  font-weight:bold;
+}
+
+#cart-count{
+  background:red;
+  color:white;
+  border-radius:50%;
+  padding:3px 8px;
+  font-size:14px;
+}
+</style>
+<body> 
+
+    <a href="card.html" class="cart-icon">
+  🛒 <span id="cart-count">0</span>
+</a>
+   <div class="product-container">
+
+    <div class="product-image">
+        <img src="front.jpg" id="productImage">
+
+        <div class="images-switch">
+            <img src="imgs4.jpeg" onclick="changeImage('front.jpg')">
+            <img src="imgs5.jpeg" onclick="changeImage('back.jpg')">
+        </div>
+    </div>
+
+    <div class="product-info">
+        <h1>T-Shirt Black</h1>
+
+        <div class="price">129 DH</div>
+
+        <p class="size-title">Choose Size</p>
+
+        <div class="sizes">
+            <button>S</button>
+            <button>M</button>
+            <button>L</button>
+            <button>XL</button>
+        </div>
+
+        <div class="quantity">
+            <input type="number" value="1" min="1">
+        </div>
+
+        <button class="add-cart">
+            Add To Cart
+        </button>
+
+    </div>
+
+</div> 
+<script>
+function changeImage(img){
+  document.getElementById("productImage").src = img;
+}
+
+let cart =
+JSON.parse(localStorage.getItem("cart")) || [];
+
+function updateCartCount(){
+  let totalQty = 0;
+
+  cart.forEach(item => {
+    totalQty += item.quantity;
+  });
+
+  document.getElementById("cart-count").textContent = totalQty;
+}
+
+function addToCart(){
+
+    let size =
+    document.getElementById("size").value;
+
+    let quantity =
+    Number(document.getElementById("quantity").value);
+
+    // نشوفو واش نفس المنتج موجود
+    let existing = cart.find(item =>
+        item.name === "T-Shirt Black" &&
+        item.size === size
+    );
+
+    if(existing){
+        existing.quantity += quantity;
+    } else {
+        cart.push({
+            name: "T-Shirt Black",
+            price: 129,
+            size: size,
+            quantity: quantity
+        });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    updateCartCount();
+
+    alert("Added to cart!");
+}
+
+updateCartCount();
+
+
+</script>
+</body>
+</html>
