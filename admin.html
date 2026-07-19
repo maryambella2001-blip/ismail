@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - fabyou</title>
+    <style>
+        body { font-family: Arial; padding: 30px; background: #f4f4f4; }
+        .container { max-width: 700px; margin: auto; background: white; padding: 25px; border-radius: 12px; }
+        input { width: 100%; padding: 10px; margin: 8px 0; }
+        button { padding: 10px 20px; background: black; color: white; border: none; cursor: pointer; }
+        .item { background: #f9f9f9; padding: 12px; margin: 8px 0; border-radius: 8px; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Admin Panel</h2>
+    
+    <h4>Add Product</h4>
+    <input type="text" id="name" placeholder="Product Name">
+    <input type="number" id="price" placeholder="Price">
+    <input type="text" id="image" placeholder="Image name (ex: fba.jpg)">
+    <button onclick="addProduct()">Add</button>
+
+    <h4>Products List</h4>
+    <div id="list"></div>
+</div>
+
+<script>
+    function addProduct() {
+        const name = document.getElementById("name").value;
+        const price = document.getElementById("price").value;
+        const image = document.getElementById("image").value || "fba.jpg";
+
+        if (!name || !price) return alert("Fill name and price");
+
+        let products = JSON.parse(localStorage.getItem("adminProducts")) || [];
+        products.push({ name, price: parseInt(price), image });
+        localStorage.setItem("adminProducts", JSON.stringify(products));
+        
+        loadProducts();
+        document.getElementById("name").value = "";
+        document.getElementById("price").value = "";
+        document.getElementById("image").value = "";
+    }
+
+    function loadProducts() {
+        const container = document.getElementById("list");
+        let products = JSON.parse(localStorage.getItem("adminProducts")) || [];
+        
+        container.innerHTML = products.length === 0 ? "<p>No products</p>" : 
+        products.map((p, i) => `
+            <div class="item">
+                <div><strong>${p.name}</strong> - ${p.price} DH</div>
+                <button onclick="deleteProduct(${i})" style="background:red">Delete</button>
+            </div>
+        `).join("");
+    }
+
+    function deleteProduct(i) {
+        let products = JSON.parse(localStorage.getItem("adminProducts")) || [];
+        products.splice(i, 1);
+        localStorage.setItem("adminProducts", JSON.stringify(products));
+        loadProducts();
+    }
+
+    window.onload = loadProducts;
+</script>
+</body>
+</html>
